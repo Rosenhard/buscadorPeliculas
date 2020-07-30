@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Buscador de peliculas
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #formulario="ngForm" (ngSubmit)="completarUrl()">
+      <ion-item>
+         <ion-label position="floating">Titulo de la Pelicula a buscar</ion-label>
+          <ion-input type="text"
+                      name="peli"
+                      [(ngModel)]="url.peli"></ion-input>
+      </ion-item>
+      <ion-button  type="submit">Buscar</ion-button>
+    </form>
+<ion-list [hidden]="!ocultar">
+  <ion-item *ngFor="let pelicula of peliculas.Search">
+    <ion-label> 
+      <h4>{{ pelicula.Title }}</h4>
+    </ion-label>
+    <ion-label >
+    <p>{{ pelicula.Year }}</p>
+    </ion-label>
+    <ion-button slot="end" color="primary" (click)="completarUrlDetalles(pelicula)">
+      <ion-icon name="eye-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-label>
+    <p>{{ peliculas.Error }}</p>
+  </ion-label>
+</ion-list>
+
+
+<ion-card [hidden]="ocultar">
+  <img src= {{info.Poster}}/>
+  <ion-card-header>
+    <ion-card-subtitle>{{info.Year}}</ion-card-subtitle>
+    <ion-card-title>{{info.Title}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-card-subtitle color="dark">Director: {{info.Director}}</ion-card-subtitle>
+    <ion-card-subtitle color="dark">Production: {{info.Production}}</ion-card-subtitle>
+    <ion-card-subtitle color="dark">Language: {{info.Language}}</ion-card-subtitle>
+    <ion-card-subtitle color="dark">Country: {{info.Country}}</ion-card-subtitle>
+    <ion-card-subtitle color="dark">Genre: {{info.Genre}}</ion-card-subtitle>
+  </ion-card-content>
+  <ion-card-content>
+    <ion-card-subtitle color="dark">Sinopsis</ion-card-subtitle>
+    <ion-card-subtitle color="dark">{{info.Plot}}</ion-card-subtitle>
+  </ion-card-content>
+</ion-card>
+<ion-button  [hidden]="ocultar" (click)="cambiarEstado()">Volver</ion-button>
+
+</ion-content>
